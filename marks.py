@@ -7,13 +7,16 @@
  '''
 
 marks = float(input('enter marks: '))
+# scope of grade is going to be global (entire file)
 if marks > 100 or marks < 0:
-  print('I')
+  grade = 'I'
 elif marks >= 70:
-  print('A')
+  grade = 'A'
 elif marks >= 60:
-  print('B')
+  grade = 'B'
 elif marks >= 40:
-  print('C')
+  grade = 'C'
 else:
-  print('F')
+  grade = 'F'
+
+print(grade)
