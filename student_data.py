@@ -7,3 +7,5 @@ marks = float(input('Enter marks : '))
 
 print(get_details(name=name, roll=roll, gender=gender, marks=marks))
 print(get_grade(marks))
+
+# procedural
