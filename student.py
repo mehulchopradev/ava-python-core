@@ -7,7 +7,7 @@
 # class is like a blueprint for the objects that will be created from it
 
 class Student:
-  def __init__(self, name=None, roll=None, gender=None, marks=None):
+  def __init__(self, name=None, roll=None, gender=None, marks=None, contact_nos=None):
     # initialize the attributes in the object (s1 or s2 or s3 -> self)
     # constructor
     # parameterized contructor
@@ -16,10 +16,20 @@ class Student:
     self.roll = roll
     self.gender = gender
     self.marks = marks
+    if contact_nos is None or isinstance(contact_nos, list):
+      self.contact_nos = contact_nos
+    else:
+      print('Hey contact nos to be a list')
 
   def get_details(self):
-    return 'Name : ' + self.name + '\nGender: ' + self.gender + '\nRoll : ' + str(self.roll)\
-       + '\nMarks : ' + str(self.marks)
+    result = 'Name : ' + self.name + '\nGender: ' + self.gender + '\nRoll : ' + str(self.roll)\
+       + '\nMarks : ' + str(self.marks) + '\n'
+
+    if self.contact_nos is not None:
+      for contact_no in self.contact_nos:
+        result += contact_no + '\n'
+
+    return result
 
   def get_grade(self):
     marks = self.marks
@@ -36,8 +46,16 @@ class Student:
 
     return grade
 
+  def get_name_roll(self):
+    return (self.name, self.roll)
+
 if __name__ == '__main__':
-  s1 = Student('mehul', 10, 'm', 90)
+  nos = ['978857435', '873483248']
+  s1 = Student('mehul', 10, 'm', 90, nos)
+  name, roll = s1.get_name_roll() # tuple unpacking
+  print(name)
+  print(roll)
+
   print(s1.get_details()) # Student.get_details(s1)
   # Reserve a random address in the RAM - 2002
   # s1 = Student.__init__(2002, 'mehul', 10, 'm', 90)
@@ -75,14 +93,17 @@ if __name__ == '__main__':
   print(s2.roll)'''
 
   # bad
-  s3 = Student(name='jill', gender='f', marks=100, roll=13)
+  my_nos = ['4464565435']
+  s3 = Student(name='jill', gender='f', marks=100, roll=13, contact_nos=my_nos)
   s3.s_name = 'jill'
   s3.r = 13
   s3.gender = 'f'
   s3.total_marks = 100
 
-  print(s3.name)
-  print(s3.roll)
+  # print(s3.name)
+  # print(s3.roll)
+
+  print(s3.get_details())
 
   s4 = Student()
   # Student.__init__(3001)
