@@ -1,4 +1,4 @@
-def perimeter(length, breadth):
+def perimeter(length, breadth=3):
   return 2 * (length + breadth)
 
 def area(length, breadth):

@@ -24,8 +24,38 @@ def pqr():
   def mno():
     return 'mno'
 
-  return mno
+  # mno is a callable variable -> mno()
+  # whereas x is not callable -> x() (wrong) -> print(x) (right)
+
+  return mno # returning the address that mno is storing
 
 a = pqr()
+# a is a callable variable
 # a will be having an address of the mno function
 print(a())
+
+def fun(f):
+  # f is a local variable
+  # f is a callable variable
+  print('Fun')
+  f()
+
+def foo():
+  print('Foo')
+
+fun(foo)
+# a function address can be passed as an argument to another function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
