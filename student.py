@@ -5,31 +5,27 @@
 
 # custom object - my own data type to the object - Student - class - gives data type to the objects created from it
 # class is like a blueprint for the objects that will be created from it
+from college_user import CollegeUser
 
-class Student:
+class Student(CollegeUser):
   def __init__(self, name=None, roll=None, gender=None, marks=None, contact_nos=None):
     # initialize the attributes in the object (s1 or s2 or s3 -> self)
     # constructor
     # parameterized contructor
     # overloaded constructors
-    self.name = name
+
+    super().__init__(name, gender, contact_nos)
+    # self <- 4001
+    # CollegeUser.__init__(self, name, gender, contact_nos)
+
     self.roll = roll
-    self.gender = gender
     self.marks = marks
-    if contact_nos is None or isinstance(contact_nos, list):
-      self.contact_nos = contact_nos
-    else:
-      print('Hey contact nos to be a list')
 
+  # method overriding
   def get_details(self):
-    result = 'Name : ' + self.name + '\nGender: ' + self.gender + '\nRoll : ' + str(self.roll)\
-       + '\nMarks : ' + str(self.marks) + '\n'
-
-    if self.contact_nos is not None:
-      for contact_no in self.contact_nos:
-        result += contact_no + '\n'
-
-    return result
+    part1 = super().get_details()
+    part2 = '\nRoll : {0}\nMarks : {1}'.format(self.roll, self.marks)
+    return part1 + part2
 
   def get_grade(self):
     marks = self.marks
@@ -51,12 +47,14 @@ class Student:
 
 if __name__ == '__main__':
   nos = ['978857435', '873483248']
+  # 4001
   s1 = Student('mehul', 10, 'm', 90, nos)
+  # Student.__init__(4001, 'mehul', 10, 'm', 90, nos)
   name, roll = s1.get_name_roll() # tuple unpacking
   print(name)
   print(roll)
 
-  print(s1.get_details()) # Student.get_details(s1)
+  print(s1.get_details()) # Student.get_details(s1) <- 4001
   # Reserve a random address in the RAM - 2002
   # s1 = Student.__init__(2002, 'mehul', 10, 'm', 90)
   # print(s1.name) # NA

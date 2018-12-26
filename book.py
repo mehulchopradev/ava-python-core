@@ -1,13 +1,28 @@
+from author import Author
+from address import Address
+
 class Book:
   # attribute that is not there with every object
   # should be common to all objects
   __count = 0 # class attribute
 
-  def __init__(self, title, price, pages):
+  def __init__(self, title, price, pages, authors=None):
     # instance attributes (object attributes)
     self.title = title
     self.price = price
     self.pages = pages
+
+    if isinstance(authors, list):
+      all_authors = [author for author in authors if isinstance(author, Author)]
+      if len(all_authors) == len(authors):
+        # aggregation association
+        # on destroying the book obj from the system, the author obj in authors would not be destroyed
+        self.authors = authors
+      else:
+        self.authors = None
+    else:
+      self.authors = None
+
     Book.__count += 1
 
   @property
@@ -39,19 +54,28 @@ class Book:
 
   def get_details(self):
     # instance function
-    return 'Title: {0}\nPrice: {1}\nPages: {2}'.format(self.title, self.price, self.pages)
+    part1 = 'Title: {0}\nPrice: {1}\nPages: {2}\n'.format(self.title, self.price, self.pages)
+    part2 = ''
+
+    if self.authors is not None:
+      for author in self.authors:
+        part2 += author.get_details() + '\n'
+    return part1 + part2
 
 if __name__ == '__main__':
 
   print(Book.get_count())
 
-  b1 = Book('Book 1', 900, 450)
+  authors = [Author('jane','f',9, Address('US','AZ','some city','23425345')),\
+    Author('mehul','m',8)]
+  
+  b1 = Book('Book 1', 900, 450, authors)
   b1.title = 'Boooook 1' # attribute
   b1.price = 560 # make the attribute as a `property`. price will be a property
   b1.pages = -900
   # b1.pages = 450
   print(b1.get_details())
-  print(b1.pages)
+  # print(b1.pages)
 
 
   b2 = Book('Book 2', -450, 1000)
@@ -61,7 +85,7 @@ if __name__ == '__main__':
   print(b2.price)
   b2.price = -560
   print(b2.get_details())
-  print(b2.price)
+  # print(b2.price)
 
   print(Book.get_count())
 
