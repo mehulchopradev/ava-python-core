@@ -12,14 +12,21 @@ class Book:
     self.price = price
     self.pages = pages
 
-    if isinstance(authors, list):
-      all_authors = [author for author in authors if isinstance(author, Author)]
-      if len(all_authors) == len(authors):
-        # aggregation association
-        # on destroying the book obj from the system, the author obj in authors would not be destroyed
-        self.authors = authors
+    if authors is not None:
+      if isinstance(authors, list):
+        all_authors = [author for author in authors if isinstance(author, Author)]
+        if len(all_authors) == len(authors):
+          # aggregation association
+          # on destroying the book obj from the system, the author obj in authors would not be destroyed
+          self.authors = authors
+        else:
+          # would rather raise an error from here
+          # self.authors = None
+          raise ValueError('All authors need to be instance of Author class')
       else:
-        self.authors = None
+        # would rather raise an error from here
+        # self.authors = None
+        raise ValueError('authors passed must be an instance of list')
     else:
       self.authors = None
 
@@ -34,7 +41,7 @@ class Book:
     if price > 0:
       self.__price = price
     else:
-      self.__price = None
+      raise ValueError('price passed in must be a non zero positive value')
 
   @property
   def pages(self):
@@ -71,7 +78,7 @@ if __name__ == '__main__':
   
   b1 = Book('Book 1', 900, 450, authors)
   b1.title = 'Boooook 1' # attribute
-  b1.price = 560 # make the attribute as a `property`. price will be a property
+  b1.price = -560 # make the attribute as a `property`. price will be a property
   b1.pages = -900
   # b1.pages = 450
   print(b1.get_details())

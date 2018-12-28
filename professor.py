@@ -8,8 +8,10 @@ class Professor(CollegeUser):
       if len(all_subjects) == len(subjects):
         self.subjects = subjects
       else:
+        # would rather raise an error from here
         self.subjects = None
     else:
+      # would rather raise an error from here
       self.subjects = None
 
   # method overriding
